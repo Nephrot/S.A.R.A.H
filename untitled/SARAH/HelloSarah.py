@@ -7,6 +7,7 @@ import numpy
 import ast
 import math
 import re
+import sys
 
 
 def detectIfNumber(textnum, numwords={}):
@@ -410,6 +411,12 @@ if __name__ == "__main__":
                         engine.say("Ready to help")
                         engine.runAndWait()
                         bool = 1
+                if guess["transcription"] == "turn off": 
+                    engine = pyttsx3.init()
+                    engine.setProperty('voice', "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    engine.say("Shutting Down")
+                    engine.runAndWait()
+                    sys.exit()
         while bool == 1:
             PROMPT_LIMIT = 5
             recognizer = sr.Recognizer()
