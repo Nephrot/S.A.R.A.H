@@ -99,7 +99,7 @@ def text2operation(textnum, numwords={}):
         return ""
 
 def createBasicProblem(string):
-    
+ 
     num = ""
     equation = ""
     stringArray = string.split()
@@ -133,8 +133,6 @@ def createBasicProblem(string):
             num = num
         elif (stringArray[i] == "the"):
             num = num
-        elif (stringArray[i] == "power"):
-            num = num
         elif (stringArray[i] == "mode"):
             num = num
         elif (stringArray[i] == "group"):
@@ -146,16 +144,8 @@ def createBasicProblem(string):
             equation += str("math.pow(")
             something = 1
         elif (stringArray[i] == "squared"):
-            num = text2int(num)
-            if (num != 0):
-                equation += str(num)
-                num = ""
             equation += str(", 2");
         elif (stringArray[i] == "cubed"):
-            num = text2int(num)
-            if (num != 0):
-                equation += str(num)
-                num = ""
             equation += str(", 3");
         elif (stringArray[i] == "first"):
             equation += str("1");
@@ -215,8 +205,8 @@ def createBasicProblem(string):
             equation += str("math.degrees(");
         elif (stringArray[i] == "radians"):
             equation += str("math.radians(");
-        elif (stringArray[i] == "pie"):
-            equation += str("pi");
+        elif (stringArray[i] == "pi"):
+            equation += str("math.pi");
         elif (stringArray[i] == "exit"):
             num = text2int(num)
             if (num != 0):
@@ -225,10 +215,6 @@ def createBasicProblem(string):
             num = ""
             #Nothing Happens
         elif (stringArray[i] == "to"):
-            num = text2int(num)
-            if (num != 0):
-               equation += str(num)
-               num = ""
             equation += str(", ")
             something = 0
         elif(stringArray[i] == "zero"): 
@@ -336,146 +322,233 @@ def operator():
     print("no")
 
 if __name__ == "__main__":
-    engine = pyttsx3.init()
-    voices = engine.getProperty('voices')
-    print("Say hello to S.A.R.A.H the Speech And Recognition Arithmetic Helper")
-    HELLO = ["turn on sarah", "hello sarah", "wake up sarah", "get up sarah", "good morning sarah", "hi sarah", "good afternoon sarah", "good evening sarah",
-             "what's new sarah", "hey sarah", "what's up sarah", "howdy sarah", "g'day sarah", "morning sarah"]
     bool = 0
-    while bool == 0:
-      PROMPT_LIMIT = 5
-      recognizer = sr.Recognizer()
-      microphone = sr.Microphone()
+    while 10 > 0:
+        equationSaved = ""
+        engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+        print("Say hello to S.A.R.A.H the Speech And Recognition Arithmetic Helper")
+        HELLO = ["turn on sarah", "hello sarah", "wake up sarah", "get up sarah", "good morning sarah", "hi sarah", "good afternoon sarah", "good evening sarah",
+                "what's new sarah", "hey sarah", "what's up sarah", "howdy sarah", "g'day sarah", "morning sarah"] 
+        while bool == 0:
+            PROMPT_LIMIT = 5
+            recognizer = sr.Recognizer()
+            microphone = sr.Microphone()
 
-      for j in range(PROMPT_LIMIT):
-          guess = getMicOutput(recognizer, microphone)
-          if guess["transcription"]:
-              break 
-          if not guess["success"]:
-              break
-          print("I didn't catch that. What did you say?\n")
-     
-        
-      tiamat = [None] * 1 
-    
-
-
-      # if there was an error, stop the game
-      if guess["error"]:
-          print("ERROR: {}".format(guess["error"]))
-          #print (tiamat)
-          break
-
-      micOutput = "".format(guess["transcription"])
-      print(guess["transcription"])
-      i = 0
-      for i in range(len(tiamat)):
-        #if "guess" in tiamat:
-        if guess["transcription"] == "hello Sarah":
-             rand = random.randint(1,4)
-             operator()
-             if rand == 1:
-                 for voice in voices:
-                     if voice.name[0] == "Microsoft Zira Desktop - English (United States)":
-                         engine.setProperty('voice', voice.id)
-                         break
-                 engine = pyttsx3.init()
-                 engine.setProperty('voice',
-                                    "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
-                 engine.say('Sarah is online.')
-                 engine.runAndWait()
-                 bool = 1
-             if rand == 2:
-                 for voice in voices:
-                     if voice.name[0] == "Microsoft Zira Desktop - English (United States)":
-                         engine.setProperty('voice', voice.id)
-                         break
-                 engine = pyttsx3.init()
-                 engine.setProperty('voice',
-                                    "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
-                 engine.say("Hello")
-                 engine.runAndWait()
-                 bool = 1
-             if rand == 3:
-                 for voice in voices:
-                     if voice.name[0] == "Microsoft Zira Desktop - English (United States)":
-                         engine.setProperty('voice', voice.id)
-                         break
-                 engine = pyttsx3.init()
-                 engine.setProperty('voice',
-                                    "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
-                 engine.say("Ready to get some math done")
-                 engine.runAndWait()
-                 bool = 1
-             if rand == 4:
-                 for voice in voices:
-                     if voice.name[0] == "Microsoft Zira Desktop - English (United States)":
-                         engine.setProperty('voice', voice.id)
-                         break
-                 engine = pyttsx3.init()
-                 engine.setProperty('voice', "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
-                 engine.say("Ready to help")
-                 engine.runAndWait()
-                 bool = 1
-    while bool == 1:
-      PROMPT_LIMIT = 5
-      recognizer = sr.Recognizer()
-      microphone = sr.Microphone()
-
-      for j in range(PROMPT_LIMIT):
-          guess = getMicOutput(recognizer, microphone)
-          if guess["transcription"]:
-              break 
-          if not guess["success"]:
-              break
-          print("I didn't catch that. What did you say?\n")
-     
-              
-      x = (guess["transcription"])
-      tiamat = [None] * 1 
-      #print (x)
-      t = x.split()
-      i=0
-      while i < len(t):
-
-          #print(is_number(t[i]))
-          #print("t" + t[i])
-          if is_number(t[i]):
-              #print(t[i])
-              t[i] = num2words.num2words(t[i])
-              t[i] = t[i].replace("-", " ")
-              t[i] = t[i].replace(",", " ")
-       
-          if t[i] == "+":
-              t[i] = t[i].replace("+", "plus")
-          if t[i] == "*":
-              t[i] = t[i].replace("*", "times")
-          if t[i] == "/":
-              t[i] = t[i].replace("/", "over")
-          if t[i] == "-":
-              t[i] = t[i].replace("-", "minus")
-          
+            for j in range(PROMPT_LIMIT):
+                guess = getMicOutput(recognizer, microphone)
+                if guess["transcription"]:
+                    break 
+                if not guess["success"]:
+                    break
+                print("I didn't catch that. What did you say?\n")
+                engine = pyttsx3.init()
+                engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                engine.say("I didn't catch that. What did you say?")
+                engine.runAndWait()
             
-          i+= 1
+                
+            tiamat = [None] * 1 
+            
+
+
+            # if there was an error, stop the game
+            if guess["error"]:
+                print("ERROR: {}".format(guess["error"]))
+                #print (tiamat)
+                break
+
+            micOutput = "".format(guess["transcription"])
+            print(guess["transcription"])
+            i = 0
+            for i in range(len(tiamat)):
+                #if "guess" in tiamat:
+                if guess["transcription"] == "hello Sarah":
+                    rand = random.randint(1,4)
+                    operator()
+                    if rand == 1:
+                        for voice in voices:
+                            if voice.name[0] == "Microsoft Zira Desktop - English (United States)":
+                                engine.setProperty('voice', voice.id)
+                                break
+                        engine = pyttsx3.init()
+                        engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                        engine.say('Sarah is online.')
+                        engine.runAndWait()
+                        bool = 1
+                    if rand == 2:
+                        for voice in voices:
+                            if voice.name[0] == "Microsoft Zira Desktop - English (United States)":
+                                engine.setProperty('voice', voice.id)
+                                break
+                        engine = pyttsx3.init()
+                        engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                        engine.say("Hello")
+                        engine.runAndWait()
+                        bool = 1
+                    if rand == 3:
+                        for voice in voices:
+                            if voice.name[0] == "Microsoft Zira Desktop - English (United States)":
+                                engine.setProperty('voice', voice.id)
+                                break
+                        engine = pyttsx3.init()
+                        engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                        engine.say("Ready to get some math done")
+                        engine.runAndWait()
+                        bool = 1
+                    if rand == 4:
+                        for voice in voices:
+                            if voice.name[0] == "Microsoft Zira Desktop - English (United States)":
+                                engine.setProperty('voice', voice.id)
+                                break
+                        engine = pyttsx3.init()
+                        engine.setProperty('voice', "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                        engine.say("Ready to help")
+                        engine.runAndWait()
+                        bool = 1
+        while bool == 1:
+            PROMPT_LIMIT = 5
+            recognizer = sr.Recognizer()
+            microphone = sr.Microphone()
+
+            for j in range(PROMPT_LIMIT):
+                guess = getMicOutput(recognizer, microphone)
+                if guess["transcription"]:
+                    break 
+                if not guess["success"]:
+                    break
+                print("I didn't catch that. What did you say?\n")
+                engine = pyttsx3.init()
+                engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                engine.say("I didn't catch that. What did you say?")
+                engine.runAndWait()
+            
+                    
+            x = (guess["transcription"])
+            tiamat = [None] * 1 
+            #print (x)
+            t = x.split()
+            i=0
+            while i < len(t):
+
+                #print(is_number(t[i]))
+                #print("t" + t[i])
+                if(hasNumbers(t[i])):
+                    t[i] = t[i].replace("th", " ")
+                if is_number(t[i]):
+                    #print(t[i])
+                    t[i] = num2words.num2words(t[i])
+                    t[i] = t[i].replace("-", " ")
+                    t[i] = t[i].replace(",", " ")
+                
+            
+                if t[i] == "+":
+                    t[i] = t[i].replace("+", "plus")
+                if t[i] == "*":
+                    t[i] = t[i].replace("*", "times")
+                if t[i] == "/":
+                    t[i] = t[i].replace("/", "over")
+                if t[i] == "-":
+                    t[i] = t[i].replace("-", "minus")
+                
+                    
+                i+= 1
+                
         
- 
-       
-      p=0
-      y=""
-      while p < len(t):
-          y += str(t[p]) + " "
-          p+=1
-      print("P:" + y)
-      
-      
-     # tiamat.append(t)
-      #print(t)
-      if(hasNumbers((createBasicProblem(y)))):
-          try:
-            print((createBasicProblem(y)))
-            print(eval(createBasicProblem(y)))
-           
-          except SyntaxError:
-            print("BOIII")
-      else:
-            print(y)
+            
+            p=0
+            y=""
+            while p < len(t):
+                y += str(t[p]) + " "
+                p+=1
+            print("P:" + y)
+            print((createBasicProblem(str(y))))
+            
+            
+            # tiamat.append(t)
+            #print(t)
+            
+            if(hasNumbers((createBasicProblem(str(y))))):
+                try:
+                    print((createBasicProblem(str(y))))
+                    print(eval(str(createBasicProblem(str(y)))))
+                    engine = pyttsx3.init()
+                    engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    engine.say(eval(str(createBasicProblem(str(y)))))
+                    engine.runAndWait()
+                    equationSaved=y
+                    bool = 2
+                
+                except SyntaxError:
+                    print("BOIII")
+                    engine = pyttsx3.init()
+                    engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    engine.say("Are you sure you are saying the equation properly, try again")
+                    engine.runAndWait()
+            else:
+                    print(str(y))
+        while bool == 2:
+            PROMPT_LIMIT = 5
+            recognizer = sr.Recognizer()
+            microphone = sr.Microphone()
+
+            for j in range(PROMPT_LIMIT):
+                guess = getMicOutput(recognizer, microphone)
+                if guess["transcription"]:
+                    break 
+                if not guess["success"]:
+                    break
+                print("I didn't catch that. What did you say?\n")
+                engine = pyttsx3.init()
+                engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                engine.say("I didn't catch that. What did you say?")
+                engine.runAndWait()
+            
+                
+            tiamat = [None] * 1 
+            
+
+
+            # if there was an error, stop the game
+            if guess["error"]:
+                print("ERROR: {}".format(guess["error"]))
+                #print (tiamat)
+                break
+
+            micOutput = "".format(guess["transcription"])
+            print(guess["transcription"])
+            i = 0
+            for i in range(len(tiamat)):
+                #if "guess" in tiamat:
+                print(guess["transcription"].find("exit"))
+                if guess["transcription"].find("again") > -1:
+                    print((createBasicProblem(str(equationSaved))))
+                    print(eval(str(createBasicProblem(str(equationSaved)))))
+                    engine = pyttsx3.init()
+                    engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    engine.say(eval(str(createBasicProblem(str(equationSaved)))))
+                    engine.runAndWait()
+                elif guess["transcription"].find("exit") > -1:
+                    
+                    engine = pyttsx3.init()
+                    engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    engine.say("Goodbye, come back soon!")
+                    engine.runAndWait()
+                    bool = 0
+                else:
+                    engine = pyttsx3.init()
+                    engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    engine.say("What is your next problem")
+                    engine.runAndWait()
+                    bool = 1
