@@ -1,3 +1,4 @@
+import tkinter as tk
 import speech_recognition as sr
 import random
 import pyttsx3
@@ -7,6 +8,8 @@ import numpy
 import ast
 import math
 import re
+import time
+
 
 
 def detectIfNumber(textnum, numwords={}):
@@ -14,7 +17,7 @@ def detectIfNumber(textnum, numwords={}):
       units = [
         "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
         "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-        "sixteen", "seventeen", "eighteen", "nineteen",
+        "sixteen", "seventeen", "eighteen", "nineteen", 
       ]
 
       tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"]
@@ -319,11 +322,22 @@ def getMicOutput(recognizer, microphone):
     return response
 
 def operator():
-    print("no")
+    print("Operator")
 
-if __name__ == "__main__":
+if __name__ == "__main__":   
+    window = tk.Tk() 
+    window.title("S.A.R.A.H")
+    window.geometry("500x500")
+
+    def task():
+        print("hello")
+        window.after(2000, task)  # reschedule event in 2 seconds
+    window.after(2000, task)
+
+
     bool = 0
     while 10 > 0:
+        window.update()
         equationSaved = ""
         engine = pyttsx3.init()
         voices = engine.getProperty('voices')
@@ -347,11 +361,11 @@ if __name__ == "__main__":
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
                 engine.say("I didn't catch that. What did you say?")
                 engine.runAndWait()
+                    
             
                 
             tiamat = [None] * 1 
             
-
 
             # if there was an error, stop the game
             if guess["error"]:
@@ -364,7 +378,7 @@ if __name__ == "__main__":
             i = 0
             for i in range(len(tiamat)):
                 #if "guess" in tiamat:
-                if guess["transcription"] == "hello Sarah":
+                if "hello Sarah" == "hello Sarah":
                     rand = random.randint(1,4)
                     operator()
                     if rand == 1:
@@ -428,7 +442,9 @@ if __name__ == "__main__":
                 engine.say("I didn't catch that. What did you say?")
                 engine.runAndWait()
             
-                    
+             
+
+  
             x = (guess["transcription"])
             tiamat = [None] * 1 
             #print (x)
@@ -552,3 +568,6 @@ if __name__ == "__main__":
                     engine.say("What is your next problem")
                     engine.runAndWait()
                     bool = 1
+
+            
+        

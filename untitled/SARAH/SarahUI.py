@@ -8,6 +8,8 @@ window.title("S.A.R.A.H")
 
 window.geometry("500x500")
 
+if __name__ == "__main__":   
+
 def updaterofsorts():
     rand = random.randint(1,4)
     x = rand
@@ -31,5 +33,5 @@ button1 = tk.Button(text="Click me", command=updatershow)
 button1.grid(column = 0, row = 1)
 
 
-window.mainloop()
-
+while 10 < 0:
+    window.update
