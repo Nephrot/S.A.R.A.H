@@ -607,7 +607,7 @@ window.geometry("1920x1080")
 window.attributes("-fullscreen", True)
 
 
-image = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Hibernation.png")
+image = tk.PhotoImage(file="../SARAH/Hibernation.png")
 smaller_image = image.subsample(5, 5)  
 panel = tk.Label(window, image = smaller_image)
 
@@ -616,7 +616,7 @@ panel.pack(side = "bottom", fill = "both", expand = "yes")
 panel.configure(background="black")
 
 def callback():  
-    img2 = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Online.png")
+    img2 = tk.PhotoImage(file="../SARAH/Online.png")
     smaller_image = img2.subsample(5, 5)  
     panel.configure(background = "black", image=smaller_image)
     panel.image = smaller_image
