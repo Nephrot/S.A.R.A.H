@@ -1,3 +1,4 @@
+import tkinter as tk
 import speech_recognition as sr
 import random
 import pyttsx3
@@ -7,12 +8,8 @@ import numpy
 import ast
 import math
 import re
-import sys
-import tkinter as tk
-import random
 import time
-import threading 
-from tkinter import *
+
 
 # ctrl alt m
 def detectIfNumber(textnum, numwords={}):
@@ -20,7 +17,7 @@ def detectIfNumber(textnum, numwords={}):
       units = [
         "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
         "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-        "sixteen", "seventeen", "eighteen", "nineteen",
+        "sixteen", "seventeen", "eighteen", "nineteen", 
       ]
 
       tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"]
@@ -325,10 +322,22 @@ def getMicOutput(recognizer, microphone):
     return response
 
 def operator():
-    print("no")
+    print("Operator")
 
-def mainProgram(bool):
+if __name__ == "__main__":   
+    window = tk.Tk() 
+    window.title("S.A.R.A.H")
+    window.geometry("500x500")
+
+    def task():
+        print("hello")
+        window.after(2000, task)  # reschedule event in 2 seconds
+    window.after(2000, task)
+
+
+    bool = 0
     while 10 > 0:
+        window.update()
         equationSaved = ""
         engine = pyttsx3.init()
         voices = engine.getProperty('voices')
@@ -356,16 +365,16 @@ def mainProgram(bool):
                 if not guess["success"]:
                     break
                 print("I didn't catch that. What did you say?\n")
-                # engine = pyttsx3.init()
-                # engine.setProperty('voice',
-                #                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
-                # engine.say("I didn't catch that. What did you say?")
-                # engine.runAndWait()
+                engine = pyttsx3.init()
+                engine.setProperty('voice',
+                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                engine.say("I didn't catch that. What did you say?")
+                engine.runAndWait()
+                    
             
                 
             tiamat = [None] * 1 
             
-
 
             # if there was an error, stop the game
             if guess["error"]:
@@ -378,7 +387,7 @@ def mainProgram(bool):
             i = 0
             for i in range(len(tiamat)):
                 #if "guess" in tiamat:
-                if guess["transcription"] == "hello Sarah":
+                if "hello Sarah" == "hello Sarah":
                     rand = random.randint(1,4)
                     operator()
                     if rand == 1:
@@ -460,7 +469,9 @@ def mainProgram(bool):
                 engine.runAndWait()
                 callback2()
             
-                    
+             
+
+  
             x = (guess["transcription"])
             tiamat = [None] * 1 
             #print (x)
@@ -596,8 +607,7 @@ def mainProgram(bool):
                     callback2()
                     engine.runAndWait()
                     bool = 1
-        
-
+                    
 window = tk.Tk()
 
 
