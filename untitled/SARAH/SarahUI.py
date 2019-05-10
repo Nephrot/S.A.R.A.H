@@ -1,35 +1,41 @@
 import tkinter as tk
 import random
 import time
+import threading 
+from tkinter import *
 
-window = tk.Tk()
+window = Tk()
 
 window.title("S.A.R.A.H")
 
-window.geometry("500x500")
+window.geometry("1920x1080")
 
-def updaterofsorts():
-    rand = random.randint(1,4)
-    x = rand
-    return(x)
+    
+image = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Hibernation.png")
+smaller_image = image.subsample(5, 5)  
+panel = tk.Label(window, image = smaller_image)
 
-def updatershow():
-    print("test")
-    greeting = updaterofsorts()
-    n_o_display = tk.Text(master=window, height=10,width=30)
-    n_o_display.grid(column=0, row = 3)
-    n_o_display.insert(tk.END,(greeting))
 
-image = tk.PhotoImage(file="volume2.png")
-label = tk.Label(image=image, height=100, width =100)
-label.grid(column=3,row=3)
+panel.pack(side = "bottom", fill = "both", expand = "yes")
+panel.configure(background="black")
 
-title = tk.Label(text ="Kill me")
-title.grid(column = 0, row = 0)
+def callback():  
+    img2 = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Online.png")
+    smaller_image = img2.subsample(5, 5)  
+    panel.configure(background = "black", image=smaller_image)
+    panel.image = smaller_image
 
-button1 = tk.Button(text="Click me", command=updatershow)
-button1.grid(column = 0, row = 1)
+def callback2():  
+    img2 = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Talking.png")
+    smaller_image = img2.subsample(5, 5)  
+    panel.configure(background = "black", image=smaller_image)
+    panel.image = smaller_image
 
+timer = threading.Timer(2.0, callback) 
+timer.start() 
+timer = threading.Timer(4.0, callback) 
+timer.start() 
 
 window.mainloop()
+
 

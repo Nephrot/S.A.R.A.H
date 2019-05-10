@@ -8,8 +8,13 @@ import ast
 import math
 import re
 import sys
+import tkinter as tk
+import random
+import time
+import threading 
+from tkinter import *
 
-
+# ctrl alt m
 def detectIfNumber(textnum, numwords={}):
     if not numwords:
       units = [
@@ -70,7 +75,7 @@ def text2int(textnum, numwords={}):
 
     return result + current
 
-    
+bool = 0   
 def text2operation(textnum, numwords={}):
     if not numwords:
       basic = [
@@ -322,16 +327,24 @@ def getMicOutput(recognizer, microphone):
 def operator():
     print("no")
 
-if __name__ == "__main__":
-    bool = 0
+def mainProgram(bool):
     while 10 > 0:
         equationSaved = ""
         engine = pyttsx3.init()
         voices = engine.getProperty('voices')
         print("Say hello to S.A.R.A.H the Speech And Recognition Arithmetic Helper")
+
         HELLO = ["turn on sarah", "hello sarah", "wake up sarah", "get up sarah", "good morning sarah", "hi sarah", "good afternoon sarah", "good evening sarah",
                 "what's new sarah", "hey sarah", "what's up sarah", "howdy sarah", "g'day sarah", "morning sarah"] 
         while bool == 0:
+            callback()
+            engine = pyttsx3.init()
+            engine.setProperty('voice',
+                                        "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+            
+            engine.say("Say hello to me, Sarah, the Speech And Recognition Arithmetic Helper?")
+            engine.runAndWait()
+            callback3()
             PROMPT_LIMIT = 5
             recognizer = sr.Recognizer()
             microphone = sr.Microphone()
@@ -343,11 +356,11 @@ if __name__ == "__main__":
                 if not guess["success"]:
                     break
                 print("I didn't catch that. What did you say?\n")
-                engine = pyttsx3.init()
-                engine.setProperty('voice',
-                                            "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
-                engine.say("I didn't catch that. What did you say?")
-                engine.runAndWait()
+                # engine = pyttsx3.init()
+                # engine.setProperty('voice',
+                #                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                # engine.say("I didn't catch that. What did you say?")
+                # engine.runAndWait()
             
                 
             tiamat = [None] * 1 
@@ -376,8 +389,10 @@ if __name__ == "__main__":
                         engine = pyttsx3.init()
                         engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                        callback()
                         engine.say('Sarah is online.')
                         engine.runAndWait()
+                        callback2()
                         bool = 1
                     if rand == 2:
                         for voice in voices:
@@ -387,8 +402,10 @@ if __name__ == "__main__":
                         engine = pyttsx3.init()
                         engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                        callback()
                         engine.say("Hello")
                         engine.runAndWait()
+                        callback2()
                         bool = 1
                     if rand == 3:
                         for voice in voices:
@@ -398,8 +415,10 @@ if __name__ == "__main__":
                         engine = pyttsx3.init()
                         engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                        callback()
                         engine.say("Ready to get some math done")
                         engine.runAndWait()
+                        callback2()
                         bool = 1
                     if rand == 4:
                         for voice in voices:
@@ -408,14 +427,18 @@ if __name__ == "__main__":
                                 break
                         engine = pyttsx3.init()
                         engine.setProperty('voice', "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                        callback()
                         engine.say("Ready to help")
                         engine.runAndWait()
+                        callback2()
                         bool = 1
                 if guess["transcription"] == "turn off": 
                     engine = pyttsx3.init()
                     engine.setProperty('voice', "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    callback()
                     engine.say("Shutting Down")
                     engine.runAndWait()
+                    callback3()
                     sys.exit()
         while bool == 1:
             PROMPT_LIMIT = 5
@@ -432,8 +455,10 @@ if __name__ == "__main__":
                 engine = pyttsx3.init()
                 engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                callback()
                 engine.say("I didn't catch that. What did you say?")
                 engine.runAndWait()
+                callback2()
             
                     
             x = (guess["transcription"])
@@ -487,8 +512,10 @@ if __name__ == "__main__":
                     engine = pyttsx3.init()
                     engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    callback()
                     engine.say(eval(str(createBasicProblem(str(y)))))
                     engine.runAndWait()
+                    callback2()
                     equationSaved=y
                     bool = 2
                 
@@ -497,8 +524,10 @@ if __name__ == "__main__":
                     engine = pyttsx3.init()
                     engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    callback()
                     engine.say("Are you sure you are saying the equation properly, try again")
                     engine.runAndWait()
+                    callback2()
             else:
                     print(str(y))
         while bool == 2:
@@ -516,8 +545,10 @@ if __name__ == "__main__":
                 engine = pyttsx3.init()
                 engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                callback()
                 engine.say("I didn't catch that. What did you say?")
                 engine.runAndWait()
+                callback2()
             
                 
             tiamat = [None] * 1 
@@ -540,22 +571,70 @@ if __name__ == "__main__":
                     print((createBasicProblem(str(equationSaved))))
                     print(eval(str(createBasicProblem(str(equationSaved)))))
                     engine = pyttsx3.init()
+                    callback()
                     engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
                     engine.say(eval(str(createBasicProblem(str(equationSaved)))))
+                    callback2()
                     engine.runAndWait()
                 elif guess["transcription"].find("exit") > -1:
                     
                     engine = pyttsx3.init()
                     engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    callback()
                     engine.say("Goodbye, come back soon!")
+                    callback3()
                     engine.runAndWait()
                     bool = 0
                 else:
                     engine = pyttsx3.init()
                     engine.setProperty('voice',
                                             "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")
+                    callback()
                     engine.say("What is your next problem")
+                    callback2()
                     engine.runAndWait()
                     bool = 1
+        
+
+window = tk.Tk()
+
+
+window.title("S.A.R.A.H")
+
+window.geometry("1920x1080")
+window.attributes("-fullscreen", True)
+
+
+image = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Hibernation.png")
+smaller_image = image.subsample(5, 5)  
+panel = tk.Label(window, image = smaller_image)
+
+
+panel.pack(side = "bottom", fill = "both", expand = "yes")
+panel.configure(background="black")
+
+def callback():  
+    img2 = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Online.png")
+    smaller_image = img2.subsample(5, 5)  
+    panel.configure(background = "black", image=smaller_image)
+    panel.image = smaller_image
+
+def callback2():  
+    img2 = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Talking.png")
+    smaller_image = img2.subsample(5, 5)  
+    panel.configure(background = "black", image=smaller_image)
+    panel.image = smaller_image 
+
+def callback3():  
+    img2 = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Hibernation.png")
+    smaller_image = img2.subsample(5, 5)  
+    panel.configure(background = "black", image=smaller_image)
+    panel.image = smaller_image 
+
+
+timer = threading.Timer(0.1, mainProgram, args=(bool,)) 
+timer.start() 
+window.mainloop()  
+     
