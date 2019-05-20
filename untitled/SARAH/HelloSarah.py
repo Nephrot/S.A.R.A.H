@@ -10,7 +10,6 @@ import math
 import re
 import time
 
-
 # ctrl alt m
 def detectIfNumber(textnum, numwords={}):
     if not numwords:
@@ -115,6 +114,18 @@ def createBasicProblem(string):
           stringArray[i] = stringArray[i].replace("th", "")
         if detectIfNumber(stringArray[i]):
             num += stringArray[i] + " "
+        elif(stringArray[i] == "definition"):
+            define = ""
+            while i < len(stringArray):
+                define += stringArray[i] + " "
+                i += 1
+            defineWord(define)
+        elif(stringArray[i] == "define"):
+            define = ""
+            while i < len(stringArray):
+                define += stringArray[i] + " "
+                i += 1
+            defineWord(define)
         elif(stringArray[i] == "hundred"):
             num += stringArray[i] + " "
         elif (stringArray[i] == "thousand"):
@@ -328,7 +339,7 @@ if __name__ == "__main__":
     window = tk.Tk() 
     window.title("S.A.R.A.H")
     window.geometry("500x500")
-
+    
     def task():
         print("hello")
         window.after(2000, task)  # reschedule event in 2 seconds
@@ -607,44 +618,9 @@ if __name__ == "__main__":
                     callback2()
                     engine.runAndWait()
                     bool = 1
-                    
-window = tk.Tk()
 
-
-window.title("S.A.R.A.H")
-
-window.geometry("1920x1080")
-window.attributes("-fullscreen", True)
-
-
-image = tk.PhotoImage(file="../SARAH/Hibernation.png")
-smaller_image = image.subsample(5, 5)  
-panel = tk.Label(window, image = smaller_image)
-
-
-panel.pack(side = "bottom", fill = "both", expand = "yes")
-panel.configure(background="black")
-
-def callback():  
-    img2 = tk.PhotoImage(file="../SARAH/Online.png")
-    smaller_image = img2.subsample(5, 5)  
-    panel.configure(background = "black", image=smaller_image)
-    panel.image = smaller_image
-
-def callback2():  
-    img2 = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Talking.png")
-    smaller_image = img2.subsample(5, 5)  
-    panel.configure(background = "black", image=smaller_image)
-    panel.image = smaller_image 
-
-def callback3():  
-    img2 = tk.PhotoImage(file="C:\\Users\\qadada\\Videos\\Hibernation.png")
-    smaller_image = img2.subsample(5, 5)  
-    panel.configure(background = "black", image=smaller_image)
-    panel.image = smaller_image 
-
-
+ 
 timer = threading.Timer(0.1, mainProgram, args=(bool,)) 
 timer.start() 
-window.mainloop()  
+window.mainloop() 
      

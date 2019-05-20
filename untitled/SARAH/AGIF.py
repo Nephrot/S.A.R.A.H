@@ -1,105 +1,62 @@
-import tkinter as tk
-import random
-import time
-import threading 
-from tkinter import *
+from bs4 import BeautifulSoup
+import requests
+import re
+import pyttsx3
+stringStarter = "Meaning of the word python"
+stringStarter = stringStarter.split()
 
-from PIL import Image, ImageTk
+def defineWord(stringStarter): 
+    i = 0
+    while i < stringStarter.__len__():
+        print(i)
+        if stringStarter[i] != "Define":
+            if stringStarter[i] != "the":
+                if stringStarter[i] != "word":
+                    if stringStarter[i] != "of":
+                        if stringStarter[i] != "Definition":
+                            if stringStarter[i] != "Meaning":
+                                    print(stringStarter[i])
+                                    url = stringStarter[i]
+                                    html = requests.get("https://www.vocabulary.com/dictionary/" + url).content
+                                    unicode_str = html.decode("utf-8")
+                                    encoded_str = unicode_str.encode("ascii", "ignore")
+                                    new_soup = BeautifulSoup(encoded_str, "html.parser")
+                                    a_text = new_soup.find_all('p')
+                                    string = str(a_text)
+                                    string = string.replace('<p sclass="one-click-content css-1o84u9 e15kc6du8">', "")
+                                    string = string.replace('<span class="italic">', '')
+                                    string = string.replace('</span>', '')
+                                    string = string.replace('</p>', '')
+                                    string = string.replace('<p>', '')
+                                    string = string.replace('[', '')
 
-class AnimatedGIF(Label, object):
-    def __init__(self, master, path, forever=True):
-        self._master = master
-        self._loc = 0
-        self._forever = forever
+                                    string = string.replace('<i>', '')
+                                    string = string.replace('</i>', '')
 
-        self._is_running = False
+                                    num2 = string.find('"long')
+                                    string = string[0:num2]
 
-        im = Image.open(path)
-        self._frames = []
-        i = 0
-        try:
-            while True:
-                photoframe = tk.PhotoImage(im.copy().convert('RGBA'))
-                photoframe = photoframe.subsample(5, 5)  
-                self._frames.append(photoframe)
-
-                i += 1
-                im.seek(i)
-        except EOFError: pass
-        
-        self._last_index = len(self._frames) - 1
-
-        try:
-            self._delay = im.info['duration']
-        except:
-            self._delay = 100
-
-        self._callback_id = None
-
-        super(AnimatedGIF, self).__init__(master, image=self._frames[0])
-
-    def start_animation(self, frame=None):
-        if self._is_running: return
-
-        if frame is not None:
-            self._loc = 0
-            self.configure(image=self._frames[frame])
-
-        self._master.after(self._delay, self._animate_GIF)
-        self._is_running = True
-
-    def stop_animation(self):
-        if not self._is_running: return
-
-        if self._callback_id is not None:
-            self.after_cancel(self._callback_id)
-            self._callback_id = None
-
-        self._is_running = False
-
-    def _animate_GIF(self):
-        self._loc += 1
-        self.configure(image=self._frames[self._loc])
-
-        if self._loc == self._last_index:
-            if self._forever:
-                self._loc = 0
-                self._callback_id = self._master.after(self._delay, self._animate_GIF)
+                                    string = string.replace('<p class="short">', '')
+                                    string = string.replace('<p class=', '')
+                                    i = 100000000
+                            else:
+                                i+=1
+                        else:
+                            i+=1
+                    else:
+                        i+=1
+                else:
+                    i+=1
             else:
-                self._callback_id = None
-                self._is_running = False
+              i+=1
         else:
-            self._callback_id = self._master.after(self._delay, self._animate_GIF)
+            i+=1
 
-    def pack(self, start_animation=True, **kwargs):
-        if start_animation:
-            self.start_animation()
 
-        super(AnimatedGIF, self).pack(**kwargs)
-
-    def grid(self, start_animation=True, **kwargs):
-        if start_animation:
-            self.start_animation()
-
-        super(AnimatedGIF, self).grid(**kwargs)
-        
-    def place(self, start_animation=True, **kwargs):
-        if start_animation:
-            self.start_animation()
-
-        super(AnimatedGIF, self).place(**kwargs)
-        
-    def pack_forget(self, **kwargs):
-        self.stop_animation()
-
-        super(AnimatedGIF, self).pack_forget(**kwargs)
-
-    def grid_forget(self, **kwargs):
-        self.stop_animation()
-
-        super(AnimatedGIF, self).grid_forget(**kwargs)
-        
-    def place_forget(self, **kwargs):
-        self.stop_animation()
-
-        super(AnimatedGIF, self).place_forget(**kwargs)
+    print(string)
+    if string.find("Whether you're a student") == -1:
+        engine = pyttsx3.init()
+        engine.setProperty('voice',"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0")       
+        engine.say(string)
+        engine.runAndWait()
+defineWord(stringStarter)
